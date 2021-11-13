@@ -7,13 +7,14 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const port = process.env.PORT || 5000;
-
+const router = require("./Routes/Auth")
 
 //Middlewares
 app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
-
+app.use(express.json())
+app.use(router);
 //DB Connection
 mongoose.connect(process.env.DB,{
     useNewUrlParser: true,
