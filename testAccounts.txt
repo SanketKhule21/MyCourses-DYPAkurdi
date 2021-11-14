@@ -1,3 +1,13 @@
 email : ritu@example.com
 password : Ritu@123!
 role : TA
+
++++++++++++++++++++++++++++++++
+{
+    "name":"Sanket",
+    "email":"sanket@example.com",
+    "phone":"8605003998",
+    "gender":"Male",
+    "role":"Teacher",
+    "password":"Sanket@123"
+}

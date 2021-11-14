@@ -1,23 +1,28 @@
 const mongoose = require("mongoose");
-const crypto = require("crypto");
-const uuid = require("uuid/v1");
 
-const enrollmentSchema = mongoose.Schema({
-          
-    duration:{
-        type:String,
-        maxlength:10,
-        required:true,
-       
+const enrollmentSchema = mongoose.Schema(
+  {
+    duration: {
+      type: String,
+      maxlength: 30,
+      required: true,
     },
-    grade:{
-        type:String,
-        maxlength:10,
-        required:true,
-       
+    certificate: {
+      type: String, //TODO: s3 Link
     },
-},{
-    timestamp:true
-});
+    status: {
+      type: String,
+      maxlength: 10,
+      default: "Incomplete",
+    },
+    grade: {
+      type: String,
+      maxlength: 10,
+    },
+  },
+  {
+    timestamp: true,
+  }
+);
 
-module.exports = mongoose.model("Enrollment",enrollmentSchema);
+module.exports = mongoose.model("Enrollment", enrollmentSchema);

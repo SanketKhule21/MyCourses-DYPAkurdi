@@ -1,86 +1,93 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
-const { v1: uuid } = require('uuid');
+const { v1: uuid } = require("uuid");
 
-const userSchema = mongoose.Schema({
-    name:{
-        type:String,
-        maxlength:30,
-        required:true,
+const userSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      maxlength: 30,
+      required: true,
     },
-    email:{
-        type:String,
-        maxlength:30,
-        required:true,
-        unique:true
+    email: {
+      type: String,
+      maxlength: 30,
+      required: true,
+      unique: true,
     },
-    role:{
-        type:String,
-        maxlength:30,
-        required:true,
+    role: {
+      type: String,
+      maxlength: 30,
+      required: true,
     },
-    about:{
-        type:String,
-        maxlength:90,
-        default:"Tell me something about yourself!"
-    }
-    ,
-    phone:{
-        type:String,
-        maxlength:30,
-        required:true,
-        unique:true
+    about: {
+      type: String,
+      maxlength: 90,
+      default: "Tell me something about yourself!",
     },
-    gender:{
-        type:String,
-        maxlength:30,
-        required:true,
+    phone: {
+      type: String,
+      maxlength: 30,
+      required: true,
+      unique: true,
     },
-    salt:String
-    ,
-    encryPassword:{
-        type:String,
-        required:true,
+    gender: {
+      type: String,
+      maxlength: 30,
+      required: true,
     },
-    dob:{
-        type:String,
+    salt: String,
+    encryPassword: {
+      type: String,
+      required: true,
     },
-    department:{
-        type:String,
-        default:"MCA"
+    dob: {
+      type: String,
     },
-    address:{
-        type:String,
-        maxlength:30
+    department: {
+      type: String,
+      default: "MCA",
     },
-    enrollmentList:{
-        type:Array,
-        default:[]
-    }
-},{
-    timestamp:true
-});
+    address: {
+      type: String,
+      maxlength: 30,
+    },
+    enrollmentList: {
+      type: Array,
+      default: [],
+    },
+  },
+  {
+    timestamp: true,
+  }
+);
 
-userSchema.virtual("password").set(function (password){
+userSchema
+  .virtual("password")
+  .set(function (password) {
     this._password = password;
     this.salt = uuid();
-    this.encryPassword = this.securePassword(password)
-}).get(function (){
+    this.encryPassword = this.securePassword(password);
+  })
+  .get(function () {
     return this._password;
-})
+  });
 
 userSchema.methods = {
-    authenticate:function(plainPassword){
-        return this.securePassword(plainPassword) === this.encryPassword;
-    },
+  authenticate: function (plainPassword) {
+    return this.securePassword(plainPassword) === this.encryPassword;
+  },
 
-    securePassword:function(plainPassword){
-        if(!plainPassword) return "";
-        try{
-            return crypto.createHmac("sha256",this.salt).update(plainPassword).digest("hex")
-        }catch(error){
-            return "";
-        }
+  securePassword: function (plainPassword) {
+    if (!plainPassword) return "";
+    try {
+      return crypto
+        .createHmac("sha256", this.salt)
+        .update(plainPassword)
+        .digest("hex");
+    } catch (error) {
+      return "";
     }
-}
-module.exports = mongoose.model("User",userSchema);
+  },
+};
+module.exports = mongoose.model("User", userSchema);
