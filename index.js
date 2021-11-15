@@ -12,6 +12,7 @@ const userRoutes = require("./Routes/User");
 const courseRoutes = require("./Routes/Course");
 const collegeRoutes = require("./Routes/College");
 const categoryRoutes = require("./Routes/Category");
+const enrollRoutes = require("./Routes/Enrollment")
 //Middlewares
 
 app.use(cors);
@@ -23,6 +24,7 @@ app.use(userRoutes);
 app.use(courseRoutes);
 app.use(collegeRoutes);
 app.use(categoryRoutes);
+app.use(enrollRoutes);
 //DB Connection
 mongoose
   .connect(process.env.DB, {

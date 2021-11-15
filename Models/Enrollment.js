@@ -1,8 +1,14 @@
 const mongoose = require("mongoose");
+const {ObjectId} = mongoose.Schema;
 
 const enrollmentSchema = mongoose.Schema(
   {
-    duration: {
+    studentId:{
+      type:ObjectId,
+      required:true
+    }
+    ,
+    durationToComplete: {
       type: String,
       maxlength: 30,
       required: true,

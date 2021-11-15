@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const { check } = require("express-validator");
+const { isSignedIn, isAuthenticated, isAdmin, isTeacher } = require("../Controller/Auth");
 const {
   updateCategory,
   read,
@@ -9,13 +10,14 @@ const {
   createCategory,
   getCategoryById,
 } = require("../Controller/Category");
+const { getUserById } = require("../Controller/User");
 
 router.param("categoryId", getCategoryById);
+router.param("userId",getUserById);
 
-router.put("/category/:categoryId", updateCategory);
-router.delete("/category/:categoryId", deleteCategory);
+router.put("/category/:categoryId/:userId",isSignedIn,isAuthenticated,isTeacher, updateCategory);
+router.delete("/category/:categoryId/:userId",isSignedIn,isAuthenticated,isTeacher, deleteCategory);
 router.get("/category/:categoryId", displayCategory);
-//router.post("/category/categoryList", getCategoryList)
-router.post("/category", createCategory);
+router.post("/category/:userId",isSignedIn,isAuthenticated,isTeacher, createCategory);
 
 module.exports = router;

@@ -10,20 +10,18 @@ const {
   exitFromCourse,
   getEnrollmnetById,
 } = require("../Controller/Enrollment");
+const { isSignedIn,isAuthenticated } = require("../Controller/Auth");
+const { getUserById } = require("../Controller/User");
+
+
 
 router.param("enrollmentId", getEnrollmnetById);
+router.param("userId", getUserById);
 
-// router.post("/enrollment/create/:userId",enroll)
-router.post("/enrollment/create", enroll); // Temp (Without userId)
-// router.get("/enrollment/status/:userId",getStatus)
-router.get("/enrollment/status/:enrollmentId", getStatus); // Temp (Without userId)
-
-// router.put("/enrollment/:enrollmentId/status/:userId",getCertificate)
-//router.get("/enrollment/:enrollmentId/certificate",getCertificate)// Temp (Without userId) make it as put
-router.put("/enrollment/:enrollmentId/certificate", getCertificate); // temp to check update query
-
-router.get("/enrollment/list/:userId", getEnrollmnetList);
-
-router.param("enrollmentId PARAM", exitFromCourse);
+router.post("/enrollment/:userId", isSignedIn, isAuthenticated, enroll);
+router.get("/enrollment/status/:enrollmentId/:userId", isSignedIn, isAuthenticated, getStatus); 
+router.put("/enrollment/certificate/:enrollmentId/:userId", isSignedIn, isAuthenticated, getCertificate);
+router.get("/enrollment/list/:userId", isSignedIn, isAuthenticated, getEnrollmnetList);
+router.delete("/enrollment/:enrollmentId/:userId", isSignedIn, isAuthenticated, exitFromCourse);
 
 module.exports = router;

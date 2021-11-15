@@ -9,7 +9,7 @@ const courseSchema = mongoose.Schema(
       required: true,
     },
     instructor: {
-      type: String,
+      type: ObjectId,
       maxlength: 30,
       required: true,
     },
@@ -35,11 +35,15 @@ const courseSchema = mongoose.Schema(
       type: String, // TODO:Upload to S3 and assign the link
       required: true,
     },
-
+    feedback:{
+      type:Array, //Add an extra schema under course as Feedback
+      default:[]
+    },
     rating: {
       type: Number,
       maxlength: 30,
       required: true,
+      default:5
     },
   },
   {

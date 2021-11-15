@@ -25,7 +25,19 @@ exports.createCategory = (req, res) => {
 };
 
 exports.updateCategory = () => {
-  console.log("updateCategory");
+  categorySchema.findByIdAndUpdate(
+    { _id: req.category._id },
+    { $set: req.body },
+    { new: true, useFindAndModify: false },
+    (err, category) => {
+      if (err) {
+        res.status(400).json({ error: "Category Not Found" });
+        return;
+      }
+     
+      res.status(200).json({ category: category });
+    }
+  );
 };
 exports.deleteCategory = (req, res) => {
   categorySchema.deleteOne({ _id: req.profile._id }).exec((err, category) => {

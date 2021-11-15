@@ -77,7 +77,7 @@ exports.isAuthenticated = (req, res, next) => {
   if (req.profile && req.auth && req.profile._id == req.auth.id) {
     next();
   } else {
-    res.status(403).json({ error: "ACCESS DENIED" });
+    res.status(403).json({ error: "ACCESS DENIED Auth" });
   }
 };
 
@@ -85,25 +85,25 @@ exports.isAdmin = (req, res, next) => {
   if (req.profile.role == "Admin") {
     next();
   } else {
-    res.status(403).json({ error: "ACCESS DENIED" });
+    res.status(403).json({ error: "ACCESS DENIED Admin" });
   }
 };
 
-exports.isModerator = (req, res, next) => {
+exports.isRegulator = (req, res, next) => {
   //TODO:Change it
-  if (req.profile.role == "Moderator") {
+  if (req.profile.role == "Regulator") {
     next();
   } else {
     //TODO:Change it
-    res.status(403).json({ error: "ACCESS DENIED" });
+    res.status(403).json({ error: "ACCESS DENIED Regulator" });
   }
 };
 
 exports.isTeacher = (req, res, next) => {
-  if (req.profile.role == "Teacher") {
+  if (req.profile.role == "Teacher" || req.profile.role == "Admin") {
     next();
   } else {
-    res.status(403).json({ error: "ACCESS DENIED" });
+    res.status(403).json({ error: "ACCESS DENIED Teacher" });
   }
 };
 

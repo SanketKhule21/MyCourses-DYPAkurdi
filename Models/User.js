@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const { v1: uuid } = require("uuid");
+const {ObjectId} = mongoose.Schema;
 
 const userSchema = mongoose.Schema(
   {
@@ -20,6 +21,10 @@ const userSchema = mongoose.Schema(
       maxlength: 30,
       required: true,
     },
+    college:{
+      type:ObjectId,
+    }
+    ,
     about: {
       type: String,
       maxlength: 90,

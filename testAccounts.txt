@@ -4,10 +4,35 @@ role : TA
 
 +++++++++++++++++++++++++++++++
 {
-    "name":"Sanket",
-    "email":"sanket@example.com",
+    "name":"Kavita Suryawanshi",
+    "email":"kavita@example.com",
     "phone":"8605003998",
-    "gender":"Male",
-    "role":"Teacher",
-    "password":"Sanket@123"
+    "gender":"Female",
+    "role":"Regulator",
+    "about":"REgulator of the system",
+    "dob":"15/11/1999",
+    "password":"kavita@123"
 }
+++++++++++++++++++++++++++++++++++++
+Colleges
+{
+    "name":"DYPIMCA",
+    "email":"dypimca@example.com",
+    "phone":"1234567890",
+    "about":"collge of MCA and Mangagement",
+    "address":"Akurdi"
+    "password":"kavita@123"
+}
+
+++++++++++++++++++
+Teachers
+{
+    "name":"DYPIMCA",
+    "email":"dypimca@example.com",
+    "phone":"1234567890",
+    "about":"collge of MCA and Mangagement",
+    "address":"Akurdi"
+    "password":"kavita@123"
+}
+
+

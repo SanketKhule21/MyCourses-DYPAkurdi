@@ -53,3 +53,30 @@ exports.userEnrollmentList = () => {
 exports.pushCourseInEnrollmentList = () => {
   console.log("pushCourseInEnrollmentList");
 };
+
+exports.forgotPassword = (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  userSchema.findOne({ _id: req.profile._id }, (err, user) => {
+    if (!user.authenticate(oldPassword)) {
+      res.status(404).json({ error: "Wrong Password" });
+      return;
+    } else {
+      var encryPass = crypto
+        .createHmac("sha256", req.profile.salt)
+        .update(newPassword)
+        .digest("hex");
+      userSchema.findByIdAndUpdate(
+        { _id: req.profile._id },
+        { $set: { encryPassword: encryPass } },
+        { new: true, useFindAndModify: false },
+        (err, user) => {
+          if (err) {
+            res.status(400).json({ error: "User Not Found" });
+            return;
+          }
+          res.status(200).json({ success: "Password changed successfully !" });
+        }
+      );
+    }
+  });
+};
